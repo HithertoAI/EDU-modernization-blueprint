@@ -18,7 +18,7 @@ Big Tech salespeople. EdTech vendors. AI "solution" providers with glossy brochu
 The federal government. Not with citizen-centric digital public architecture. Not with universal safety standards. Not with a national funding framework. Not with solutions designed around your students' interests rather than a vendor's business model.
 
 **What this blueprint is:**
-A standard. A set of demands you are entitled to make. A demonstration that what you deserve is already achievable — today, with existing hardware, open-source software, and the knowledge to refuse anything less.
+A standard. A set of demands you are entitled to make. A demonstration that what you deserve is already achievable, today, with existing hardware, open-source software, and the knowledge to refuse anything less.
 
 We have built some of what's described here. Others have built versions of it elsewhere. **None of it is a mandate. None of it requires us.** The pattern is what matters, not the product.
 
