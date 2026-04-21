@@ -26,7 +26,7 @@ We have built some of what's described here. Others have built versions of it el
 
 ## The Core Demand: By Default
 
-Any system — built, bought, or partnered — must meet all five of these before a single student or staff member touches it.
+Any system, built, bought, or partnered, must meet all five of these before a single student or staff member touches it.
 
 | Default | What It Actually Means |
 |---|---|
@@ -61,7 +61,7 @@ Any system — built, bought, or partnered — must meet all five of these befor
 
 ## What's Possible (Not What You Must Buy)
 
-Everything below is achievable today. It does not require a single federal program, a single vendor, or this project specifically. **If you're working with an implementation partner, require them to white-label everything for your district.** Their job is to make it work for your community — not to advertise themselves inside your schools.
+Everything below is achievable today. It does not require a single federal program, a single vendor, or this project specifically. **If you're working with an implementation partner, require them to white-label everything for your district.** Their job is to make it work for your community, not to advertise themselves inside your schools.
 
 ### Physical Safety — RFID/NFC Double-Door Air Lock
 
@@ -110,7 +110,7 @@ A mentorship AI trained for psychological balance, conflict resolution, and cris
 
 **What it does for students (opt-in, parental consent):**
 - Metacognitive coaching: *"How could I break down this problem?"*
-- Optional daily check-ins that build rapport and identify distress patterns — without surveillance
+- Optional daily check-ins that build rapport and identify distress patterns, without surveillance
 - All interactions local, private, deleted after session unless anonymized for aggregate safety data
 
 The pattern is what matters. Build it, find it open-source, or require any vendor to implement it without their branding attached.
@@ -131,7 +131,7 @@ Any student or staff member can trigger emergency assistance — voice, button, 
 | Active shooter / intruder | Immediate alert with location; lockdown instructions |
 | Student emotional distress | Grounding support; option to alert counselor |
 
-**Evidentiary escrow:** When an emergency is triggered and recorded, two encrypted copies are created — one to school administration, one to an independent neutral escrow. The district controls only one copy. The escrow copy is immutable. Districts cannot alter or delete the evidence.
+**Evidentiary escrow:** When an emergency is triggered and recorded, two encrypted copies are created, one to school administration, one to an independent neutral escrow. The district controls only one copy. The escrow copy is immutable. Districts cannot alter or delete the evidence.
 
 *"If your district has nothing to hide, you have nothing to fear from an independent escrow. If you refuse it, we have to wonder why."*
 
@@ -165,7 +165,7 @@ Required. Not optional. By not teaching AI *with* AI, we are being bad stewards 
 
 ### Cooperative Data Licensing — Self-Funding
 
-Schools cannot wait for funding that may not arrive. Some anonymized, aggregated datasets can become licensable assets — licensed cooperatively, not sold.
+Schools cannot wait for funding that may not arrive. Some anonymized, aggregated datasets can become licensable assets, licensed cooperatively, not sold.
 
 - **Revenue licensing** → funds training, maintenance, and support
 - **Reciprocal licensing** → districts trade anonymized datasets for tools
@@ -180,19 +180,19 @@ This can reach self-funding within 18–24 months without a federal grant.
 
 These questions separate systems built for students from systems built to extract from them. If a vendor hesitates, deflects, or says no to any of these — walk away.
 
-1. **Does your system process student data locally, with zero persistence — nothing stored in the cloud without explicit, revocable consent?**
+1. **Does your system process student data locally, with zero persistence, nothing stored in the cloud without explicit, revocable consent?**
    *No → Walk away.*
 
-2. **Is your hardware agnostic — does it work with any school computer and compatible reader, not just yours?**
+2. **Is your hardware agnostic, does it work with any school computer and compatible reader, not just yours?**
    *No → Walk away.*
 
 3. **Can your software be fully white-labeled so your company name, brand, and AI model names don't appear inside our schools?**
    *No → Walk away.*
 
-4. **Does deployment require training for staff and students before the tool is activated — not after?**
+4. **Does deployment require training for staff and students before the tool is activated, not after?**
    *No → Walk away.*
 
-5. **Does your system work entirely without biometrics — no facial recognition, no fingerprints, no iris scans, no exceptions for minors?**
+5. **Does your system work entirely without biometrics, no facial recognition, no fingerprints, no iris scans, no exceptions for minors?**
    *No → Walk away.*
 
 6. **Is your code open-source or available for independent audit?**
@@ -225,12 +225,12 @@ Audits that produce finger-wagging with no actionable steps have failed schools 
 
 | Country | What They've Shown |
 |---|---|
-| **Finland** | Top educational rankings, happiest country on earth. Trust-based governance — not surveillance. |
+| **Finland** | Top educational rankings, happiest country on earth. Trust-based governance, not surveillance. |
 | **South Korea** | Digital textbook infrastructure, adaptive learning, coding from early grades. |
 | **Singapore** | Computational thinking from primary school. National AI for Kids program. |
-| **Estonia** | Digital-first public infrastructure built locally via Tiger Leap — not imported from vendors. |
+| **Estonia** | Digital-first public infrastructure built locally via Tiger Leap, not imported from vendors. |
 | **UAE** | AI curriculum grades 1–12. Ministry of AI. Public accountability, not outsourced. |
-| **At home** | We've built components of this. They work. But this is a demonstration that the pattern is sound — not an advertisement for what we built. |
+| **At home** | We've built components of this. They work. But this is a demonstration that the pattern is sound, not an advertisement for what we built. |
 
 ---
 
@@ -238,7 +238,7 @@ Audits that produce finger-wagging with no actionable steps have failed schools 
 
 > *"No one is coming to save American schools. Not the federal government. Not a single vendor. Not a magic AI.*
 >
-> *That's not despair. It's liberation. Because it means we get to build the future ourselves — together — on our terms.*
+> *That's not despair. It's liberation. Because it means we get to build the future ourselves, together, on our terms.*
 >
 > *Start with training. Add technology only as a faithful co-author of a future we design together.*
 >
@@ -250,7 +250,7 @@ Audits that produce finger-wagging with no actionable steps have failed schools 
 
 ## Use This Freely
 
-This blueprint is open. Share it, adapt it, build from it. Hold every vendor — including anyone connected to this project — to the standard it describes.
+This blueprint is open. Share it, adapt it, build from it. Hold every vendor, including anyone connected to this project, to the standard it describes.
 
 That's the whole point.
 
