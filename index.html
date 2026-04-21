@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School System Modernization Blueprint</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --purple:      #2D1B69;
+      --purple-mid:  #4A2C9E;
+      --purple-light:#7C5CBF;
+      --coral:       #E8613A;
+      --coral-light: #F08060;
+      --gold:        #F2C14E;
+      --gold-light:  #F7D97A;
+      --cream:       #F5F0E8;
+      --warm-gray:   #EDE7DA;
+      --text-dark:   #1A1025;
+      --text-mid:    #3D2E5C;
+      --text-body:   #2C2040;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-body);
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(26,16,37,0.93);
+      backdrop-filter: blur(12px);
+      padding: 0 80px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(245,240,232,0.08);
+    }
+    .nav-brand { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--cream); text-decoration: none; font-weight: 700; }
+    .nav-brand span { color: var(--gold); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: rgba(245,240,232,0.65); text-decoration: none; font-size: 0.87rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* HERO */
+    .hero {
+      background: var(--purple);
+      color: var(--cream);
+      min-height: 100vh;
+      padding-top: 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 70% 40%, rgba(74,44,158,0.6) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 15% 85%, rgba(232,97,58,0.2) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero-text {
+      padding: 80px 60px 80px 80px;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; z-index: 2;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--coral); color: #fff;
+      font-family: 'DM Mono', monospace; font-size: 0.7rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 2px;
+      margin-bottom: 32px; width: fit-content;
+    }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem, 4.5vw, 4.2rem); font-weight: 900; line-height: 1.1; color: var(--cream); }
+    .hero h1 span { color: var(--gold); display: block; }
+    .hero-sub { font-size: 1.1rem; color: rgba(245,240,232,0.75); margin: 24px 0 40px; max-width: 500px; font-weight: 300; line-height: 1.75; }
+    .hero-cta-group { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 4px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; transition: transform 0.15s, box-shadow 0.15s;
+      cursor: pointer; border: none;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+    .btn-gold    { background: var(--gold); color: var(--purple); }
+    .btn-outline { background: transparent; border: 2px solid rgba(245,240,232,0.35); color: var(--cream); }
+    .btn-outline:hover { border-color: var(--coral-light); }
+    .btn-dark    { background: var(--text-dark); color: var(--cream); }
+
+    .hero-visual {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 2; padding: 80px 60px;
+    }
+    .warning-card {
+      width: 100%; max-width: 400px;
+      border-radius: 12px; overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+      animation: floatCard 6s ease-in-out infinite;
+    }
+    @keyframes floatCard {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+    .card-panel { padding: 32px 36px; }
+    .card-panel-coming {
+      background: rgba(232,97,58,0.15);
+      border: 1px solid rgba(232,97,58,0.3);
+      border-bottom: none; border-radius: 12px 12px 0 0;
+    }
+    .card-panel-not {
+      background: rgba(245,240,232,0.06);
+      border: 1px solid rgba(245,240,232,0.12);
+      border-top: none; border-radius: 0 0 12px 12px;
+    }
+    .card-panel .eyebrow {
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .card-panel-coming .eyebrow { color: var(--coral-light); }
+    .card-panel-not .eyebrow    { color: rgba(245,240,232,0.45); }
+    .card-panel ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .card-panel li { display: flex; align-items: center; gap: 12px; font-size: 0.92rem; color: rgba(245,240,232,0.85); }
+    .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .dot-coral { background: var(--coral); }
+    .dot-muted { background: rgba(245,240,232,0.25); }
+
+    /* TWO TRUTHS */
+    .truths-strip { display: grid; grid-template-columns: 1fr 1fr; }
+    .truth-panel { padding: 40px 80px; }
+    .truth-panel-a { background: var(--coral); color: #fff; }
+    .truth-panel-b { background: var(--purple-mid); color: var(--cream); }
+    .truth-panel .label {
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.75; margin-bottom: 12px;
+    }
+    .truth-panel p { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; line-height: 1.5; }
+
+    /* SECTIONS */
+    section { padding: 96px 80px; }
+    .section-label {
+      font-family: 'DM Mono', monospace; font-size: 0.7rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--coral); margin-bottom: 16px;
+    }
+    h2.section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.9rem);
+      color: var(--purple); font-weight: 900; line-height: 1.15; margin-bottom: 20px;
+    }
+    .section-intro {
+      font-size: 1.08rem; color: var(--text-mid);
+      max-width: 660px; margin-bottom: 52px;
+      font-weight: 300; line-height: 1.75;
+    }
+
+    /* SALESPERSON SECTION */
+    .salesperson-section { background: var(--text-dark); color: var(--cream); padding: 80px; }
+    .salesperson-section .section-title { color: var(--gold); }
+    .salesperson-section .section-intro { color: rgba(245,240,232,0.65); max-width: 720px; }
+    .salesperson-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .salesperson-col h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 20px; }
+    .salesperson-col.danger h3  { color: var(--coral); }
+    .salesperson-col.defense h3 { color: var(--gold); }
+    .tactic-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .tactic-list li { display: flex; gap: 14px; align-items: flex-start; font-size: 0.95rem; line-height: 1.65; color: rgba(245,240,232,0.8); }
+    .tactic-list .icon { flex-shrink: 0; margin-top: 2px; }
+
+    /* STANDARD */
+    .standard-section { background: var(--warm-gray); }
+    .standard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .standard-card {
+      background: #fff; border-radius: 10px; padding: 36px 32px;
+      border-top: 5px solid var(--purple-light);
+      box-shadow: 0 2px 16px rgba(45,27,105,0.07);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .standard-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(45,27,105,0.13); }
+    .standard-card:nth-child(2) { border-top-color: var(--coral); }
+    .standard-card:nth-child(3) { border-top-color: var(--gold); }
+    .standard-card:nth-child(4) { border-top-color: var(--purple-mid); }
+    .standard-card:nth-child(5) { border-top-color: var(--coral-light); }
+    .standard-card .icon { font-size: 2rem; margin-bottom: 18px; display: block; }
+    .standard-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--purple); margin-bottom: 10px; font-weight: 700; }
+    .standard-card p { font-size: 0.93rem; color: var(--text-mid); line-height: 1.65; }
+
+    /* POSSIBLE */
+    .possible-section { background: var(--purple); color: var(--cream); }
+    .possible-section .section-title { color: var(--cream); }
+    .possible-section .section-intro { color: rgba(245,240,232,0.65); }
+    .agnostic-banner {
+      background: rgba(242,193,78,0.12);
+      border: 1px solid rgba(242,193,78,0.3);
+      border-radius: 10px; padding: 28px 36px; margin-bottom: 48px; max-width: 800px;
+    }
+    .agnostic-banner p { font-size: 1.05rem; color: var(--gold-light); line-height: 1.7; }
+    .agnostic-banner strong { color: var(--gold); }
+    .possible-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .possible-card {
+      background: rgba(245,240,232,0.05);
+      border: 1px solid rgba(245,240,232,0.1);
+      border-radius: 10px; padding: 32px 28px; transition: background 0.2s;
+    }
+    .possible-card:hover { background: rgba(245,240,232,0.09); }
+    .possible-card .tag {
+      font-family: 'DM Mono', monospace; font-size: 0.64rem;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
+    }
+    .possible-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--cream); margin-bottom: 12px; }
+    .possible-card p  { font-size: 0.92rem; color: rgba(245,240,232,0.65); line-height: 1.65; }
+    .possible-card .note {
+      display: inline-block; margin-top: 16px;
+      font-size: 0.8rem; color: rgba(245,240,232,0.38); font-style: italic;
+    }
+
+    /* QUESTIONS */
+    .questions-section { background: #fff; }
+    .questions-intro-box {
+      background: var(--purple); color: var(--cream);
+      border-radius: 12px; padding: 40px 48px; margin-bottom: 48px; max-width: 800px;
+    }
+    .questions-intro-box p { font-family: 'Playfair Display', serif; font-size: 1.2rem; line-height: 1.55; color: var(--cream); }
+    .questions-intro-box .sub {
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      color: rgba(245,240,232,0.55); margin-top: 16px; font-style: italic; font-weight: 300;
+    }
+    .questions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+    .question-card {
+      background: var(--cream); border-radius: 10px; padding: 28px;
+      border-left: 4px solid var(--purple-light);
+    }
+    .question-card:nth-child(2) { border-left-color: var(--coral); }
+    .question-card:nth-child(3) { border-left-color: var(--gold); }
+    .question-card:nth-child(4) { border-left-color: var(--purple-mid); }
+    .question-card:nth-child(5) { border-left-color: var(--coral-light); }
+    .question-card:nth-child(6) { border-left-color: var(--gold-light); }
+    .question-card .q {
+      font-size: 0.97rem; color: var(--text-body); line-height: 1.6; margin-bottom: 12px;
+    }
+    .question-card .walk-away {
+      font-family: 'DM Mono', monospace; font-size: 0.78rem;
+      color: var(--coral); font-weight: 500; letter-spacing: 0.05em;
+    }
+
+    /* EVIDENCE */
+    .evidence-section { background: var(--warm-gray); }
+    .country-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .country-card {
+      border-radius: 10px; padding: 28px 24px; background: #fff;
+      border-left: 5px solid var(--purple-light); transition: transform 0.2s;
+    }
+    .country-card:hover { transform: translateX(4px); }
+    .country-card:nth-child(2) { border-left-color: var(--coral); }
+    .country-card:nth-child(3) { border-left-color: var(--gold); }
+    .country-card:nth-child(4) { border-left-color: var(--purple-mid); }
+    .country-card:nth-child(5) { border-left-color: var(--coral-light); }
+    .country-card:nth-child(6) { border-left-color: var(--gold-light); }
+    .country-card .flag { font-size: 2rem; margin-bottom: 12px; display: block; }
+    .country-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--purple); margin-bottom: 8px; }
+    .country-card p  { font-size: 0.88rem; color: var(--text-mid); line-height: 1.6; }
+
+    /* QUOTE */
+    .quote-section {
+      background: linear-gradient(135deg, var(--purple-mid) 0%, var(--purple) 60%, #1a0f3d 100%);
+      color: var(--cream); text-align: center; padding: 96px 120px;
+    }
+    .big-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.4rem);
+      font-weight: 700; line-height: 1.45; color: var(--cream);
+      max-width: 860px; margin: 0 auto 32px; position: relative;
+    }
+    .big-quote::before {
+      content: '\201C'; font-size: 7rem; color: var(--gold); opacity: 0.2;
+      position: absolute; top: -36px; left: -16px;
+      font-family: 'Playfair Display', serif; line-height: 1;
+    }
+    .quote-attr {
+      font-family: 'DM Mono', monospace; font-size: 0.75rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold);
+    }
+
+    /* CLOSE */
+    .close-section {
+      background: var(--coral); color: #fff; padding: 96px 80px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .close-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; line-height: 1.2; color: #fff;
+    }
+    .close-section p { font-size: 1.05rem; opacity: 0.88; line-height: 1.75; margin-bottom: 24px; }
+
+    /* FOOTER */
+    footer {
+      background: var(--text-dark); color: rgba(245,240,232,0.5);
+      padding: 40px 80px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px; font-size: 0.85rem;
+    }
+    .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--cream); }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ANIMATIONS */
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-visual { display: none; }
+      .hero-text { padding: 60px 32px; }
+      .truths-strip { grid-template-columns: 1fr; }
+      .truth-panel { padding: 36px 32px; }
+      section { padding: 64px 32px; }
+      .salesperson-section { padding: 64px 32px; }
+      .salesperson-grid { grid-template-columns: 1fr; gap: 32px; }
+      .close-section { grid-template-columns: 1fr; gap: 32px; padding: 64px 32px; }
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      footer { padding: 32px; flex-direction: column; text-align: center; }
+      .quote-section { padding: 64px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-brand">School System <span>Modernization</span></a>
+  <ul class="nav-links">
+    <li><a href="#what-is-coming">What's Coming</a></li>
+    <li><a href="#the-standard">The Standard</a></li>
+    <li><a href="#whats-possible">What's Possible</a></li>
+    <li><a href="#questions">Ask Vendors This</a></li>
+    <li><a href="#evidence">Evidence</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <span class="hero-badge">Open Blueprint · Not a Sales Tool</span>
+    <h1>Know What's Coming.<span>Demand What's Possible.</span></h1>
+    <p class="hero-sub">Big Tech salespeople are heading to your district. The federal government is not coming with citizen-centric solutions. This blueprint exists so you can tell the difference between what you deserve and what you'll be sold.</p>
+    <div class="hero-cta-group">
+      <a href="https://github.com" class="btn btn-gold">Read the Blueprint →</a>
+      <a href="#what-is-coming" class="btn btn-outline">Who's Coming for You</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="warning-card">
+      <div class="card-panel card-panel-coming">
+        <div class="eyebrow">// Who IS coming</div>
+        <ul>
+          <li><span class="dot dot-coral"></span>Big Tech EdTech salespeople</li>
+          <li><span class="dot dot-coral"></span>Proprietary hardware vendors</li>
+          <li><span class="dot dot-coral"></span>Biometric surveillance products</li>
+          <li><span class="dot dot-coral"></span>Data-extractive "AI solutions"</li>
+          <li><span class="dot dot-coral"></span>Vendor lock-in, glossy brochures</li>
+        </ul>
+      </div>
+      <div class="card-panel card-panel-not">
+        <div class="eyebrow">// Who is NOT coming</div>
+        <ul>
+          <li><span class="dot dot-muted"></span>Federal digital public infrastructure</li>
+          <li><span class="dot dot-muted"></span>Universal safety standards</li>
+          <li><span class="dot dot-muted"></span>Citizen-centric architecture for schools</li>
+          <li><span class="dot dot-muted"></span>A national funding framework</li>
+          <li><span class="dot dot-muted"></span>Someone else to solve this for you</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TWO TRUTHS -->
+<div class="truths-strip">
+  <div class="truth-panel truth-panel-a">
+    <div class="label">The threat</div>
+    <p>Vendors will promise the moon, lock you into proprietary hardware, harvest your students' data, and leave you with a system that does less than what you paid for.</p>
+  </div>
+  <div class="truth-panel truth-panel-b">
+    <div class="label">The opportunity</div>
+    <p>Everything described in this blueprint is achievable today — with existing hardware and open-source or freely licensable software. It costs no more than the inferior systems being sold to you.</p>
+  </div>
+</div>
+
+<!-- WHAT IS COMING -->
+<section id="what-is-coming" class="salesperson-section">
+  <div class="section-label">Situational Awareness</div>
+  <h2 class="section-title">Arm Yourself With Knowledge</h2>
+  <p class="section-intro">Your job is not to build this alone. Your job is to know the standard — so that when a vendor walks through the door, you can ask the right questions and walk away if they can't answer them.</p>
+  <div class="salesperson-grid">
+    <div class="salesperson-col danger">
+      <h3>What Vendors Will Do</h3>
+      <ul class="tactic-list">
+        <li><span class="icon">⚠️</span><span>Promise "all-in-one" solutions designed to create permanent dependency on a single vendor</span></li>
+        <li><span class="icon">⚠️</span><span>Push biometric systems — facial recognition, fingerprints — framed as cutting-edge safety</span></li>
+        <li><span class="icon">⚠️</span><span>Require proprietary hardware so you can't swap components or renegotiate later</span></li>
+        <li><span class="icon">⚠️</span><span>Collect and monetize student data in ways buried deep in terms of service</span></li>
+        <li><span class="icon">⚠️</span><span>Offer "free" tools that are data extraction pipelines in disguise</span></li>
+        <li><span class="icon">⚠️</span><span>Deploy technology first, with training as an afterthought — or no training at all</span></li>
+      </ul>
+    </div>
+    <div class="salesperson-col defense">
+      <h3>What You Have the Right to Demand</h3>
+      <ul class="tactic-list">
+        <li><span class="icon">✦</span><span><strong style="color:var(--gold-light)">Hardware agnosticism</strong> — any school computer, any compatible reader should work with your software</span></li>
+        <li><span class="icon">✦</span><span><strong style="color:var(--gold-light)">Software agnosticism</strong> — white-labeled tools you control; no brand propagandizing inside your schools</span></li>
+        <li><span class="icon">✦</span><span><strong style="color:var(--gold-light)">Privacy by default</strong> — local processing, zero-persistence, no cloud data mining of students</span></li>
+        <li><span class="icon">✦</span><span><strong style="color:var(--gold-light)">Training before deployment</strong> — staff and students educated before any tool is activated</span></li>
+        <li><span class="icon">✦</span><span><strong style="color:var(--gold-light)">No biometrics</strong> — ever, for minors, for any reason, from any vendor</span></li>
+        <li><span class="icon">✦</span><span><strong style="color:var(--gold-light)">Open or auditable code</strong> — no proprietary black boxes in your school's infrastructure</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- THE STANDARD -->
+<section id="the-standard" class="standard-section">
+  <div class="section-label">Non-Negotiables</div>
+  <h2 class="section-title">Zero Preventable Harm, By Default</h2>
+  <p class="section-intro">Not a goal. A design condition. Build it, buy it, or partner for it — but any implementation should meet these five standards before a single student or staff member touches it.</p>
+  <div class="standard-grid">
+    <div class="standard-card fade-up">
+      <span class="icon">🔒</span>
+      <h3>Secure by Default</h3>
+      <p>Open or auditable firmware. Vendor registration gates. Complete device inventories. No proprietary black boxes. Any alteration to infrastructure triggers an alert.</p>
+    </div>
+    <div class="standard-card fade-up">
+      <span class="icon">🛡️</span>
+      <h3>Private by Default</h3>
+      <p>Local processing. Zero-persistence. No cloud data mining. No student PII ever licensed or sold. Families can opt out. Governance is transparent and public.</p>
+    </div>
+    <div class="standard-card fade-up">
+      <span class="icon">♿</span>
+      <h3>Accessible by Default</h3>
+      <p>Design for the edge cases first. Every student gets the tools they need regardless of income, ability, or organizational skill. Accessibility is not an add-on.</p>
+    </div>
+    <div class="standard-card fade-up">
+      <span class="icon">👁️</span>
+      <h3>Human-Supervised by Default</h3>
+      <p>No automated decisions about discipline, grading, or student placement. AI identifies patterns. Humans act. Version control and rollback for every model deployed.</p>
+    </div>
+    <div class="standard-card fade-up">
+      <span class="icon">🎓</span>
+      <h3>Training-Accompanied by Default</h3>
+      <p>No tool touches a student or staff member without role-specific, just-in-time, ongoing education. Training is not optional. It is not an afterthought. It comes first.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S POSSIBLE -->
+<section id="whats-possible" class="possible-section">
+  <div class="section-label">Proof, Not Prescription</div>
+  <h2 class="section-title">What's Possible With Existing Technology</h2>
+  <p class="section-intro">Everything below exists today. Some of it we've built. Others have built versions of it. None of it requires a federal program or a single vendor. All of it requires knowing what to demand.</p>
+  <div class="agnostic-banner">
+    <p>Any implementation of this blueprint should be <strong>fully software-agnostic and white-labeled for each district</strong>. A provider's job is to make the system serve your community — not to propagandize their company, their AI models, or their brand inside your schools. <strong>Our work is one example of what's possible. It is not the mandate.</strong></p>
+  </div>
+  <div class="possible-grid">
+    <div class="possible-card fade-up">
+      <div class="tag">Physical Safety</div>
+      <h3>RFID/NFC Double-Door Air Lock</h3>
+      <p>A vestibule system with multi-form-factor credentials — wristbands, cards, fobs, shoe tags. Losing one doesn't lock a student out. No biometrics, no facial recognition, no fingerprints. Dignity built into the design.</p>
+      <span class="note">Achievable with off-the-shelf hardware + open-source software</span>
+    </div>
+    <div class="possible-card fade-up">
+      <div class="tag">Accessibility</div>
+      <h3>Privacy-Safe Accessible Browser</h3>
+      <p>A browser that reconstructs any digital content into a personalized accessible stream — haptic, visual, or auditory. Processes everything locally. No cloud. No student data leaving the device. Free to every school that needs it.</p>
+      <span class="note">Local processing — no vendor dependency required</span>
+    </div>
+    <div class="possible-card fade-up">
+      <div class="tag">AI Mentorship</div>
+      <h3>Rapport-First Mentorship AI</h3>
+      <p>A mentorship AI trained for psychological balance, conflict resolution, and crisis management — not surveillance. Helps teachers plan lessons, supports student metacognition. User-controlled. Private. Never watching unprompted.</p>
+      <span class="note">The pattern matters — build it, buy it, or use open-source</span>
+    </div>
+    <div class="possible-card fade-up">
+      <div class="tag">Safety Net</div>
+      <h3>User-Initiated Emergency Failsafe</h3>
+      <p>Any student or staff member can trigger emergency assistance by voice, button, or gesture. Alerts administration, records only from that moment, provides real-time guidance. An independent escrow prevents evidence from being buried by the district.</p>
+      <span class="note">Not surveillance — a user-controlled safety switch</span>
+    </div>
+    <div class="possible-card fade-up">
+      <div class="tag">IoT Integrity</div>
+      <h3>Vendor Gate & Device Registry</h3>
+      <p>Every IoT device inventoried from day one. Vendors register every device before work begins. Air quality, temperature, efficiency motion — yes. Continuous audio/video, biometrics, individual location tracking — never.</p>
+      <span class="note">Policy + auditable firmware, not proprietary lock-in</span>
+    </div>
+    <div class="possible-card fade-up">
+      <div class="tag">Sustainability</div>
+      <h3>Cooperative Data Licensing</h3>
+      <p>Anonymized, aggregated datasets licensed cooperatively — not sold. Revenue funds the commons. Reciprocal models let districts trade anonymized data for tools. No student PII. No waiting for federal grants that may never arrive.</p>
+      <span class="note">Self-funding within 18–24 months</span>
+    </div>
+  </div>
+</section>
+
+<!-- QUESTIONS -->
+<section id="questions" class="questions-section">
+  <div class="section-label">Your Leverage</div>
+  <h2 class="section-title">What to Ask Every Vendor</h2>
+  <p class="section-intro">You now know what is possible. Use that knowledge. These questions separate systems built for students from systems built to extract from them.</p>
+  <div class="questions-intro-box">
+    <p>If a vendor hesitates, deflects, or says no to any of these — walk away. You are not obligated to accept an inferior system because someone has a good pitch deck.</p>
+    <p class="sub">This applies to every vendor. Including any group that shares this blueprint. Software agnosticism is not optional.</p>
+  </div>
+  <div class="questions-grid">
+    <div class="question-card fade-up">
+      <div class="q">Does your system process student data locally, with zero persistence — nothing stored in the cloud without explicit, revocable consent?</div>
+      <span class="walk-away">No → Walk away.</span>
+    </div>
+    <div class="question-card fade-up">
+      <div class="q">Is your hardware agnostic — meaning it works with any school computer and any compatible reader, not just yours?</div>
+      <span class="walk-away">No → Walk away.</span>
+    </div>
+    <div class="question-card fade-up">
+      <div class="q">Can your software be fully white-labeled so it doesn't display your company name, brand, or AI model names inside our schools?</div>
+      <span class="walk-away">No → Walk away.</span>
+    </div>
+    <div class="question-card fade-up">
+      <div class="q">Does deployment require training for staff and students before the tool is activated — not after?</div>
+      <span class="walk-away">No → Walk away.</span>
+    </div>
+    <div class="question-card fade-up">
+      <div class="q">Does your system work entirely without biometrics — no facial recognition, no fingerprints, no iris scans, no exceptions for minors?</div>
+      <span class="walk-away">No → Walk away.</span>
+    </div>
+    <div class="question-card fade-up">
+      <div class="q">Is your code open-source or available for independent audit? Can we verify what it does and doesn't do?</div>
+      <span class="walk-away">No → Walk away.</span>
+    </div>
+  </div>
+</section>
+
+<!-- EVIDENCE -->
+<section id="evidence" class="evidence-section">
+  <div class="section-label">Proof of Concept</div>
+  <h2 class="section-title">This Isn't Theoretical</h2>
+  <p class="section-intro">We are not inventing from scratch. These countries already have components of this blueprint in place — built locally, governed publicly, not vendor-dependent.</p>
+  <div class="country-grid">
+    <div class="country-card fade-up">
+      <span class="flag">🇫🇮</span>
+      <h3>Finland</h3>
+      <p>Top educational rankings, happiest country on earth. Strong AI literacy, teacher autonomy, trust-based governance — not surveillance-based compliance.</p>
+    </div>
+    <div class="country-card fade-up">
+      <span class="flag">🇰🇷</span>
+      <h3>South Korea</h3>
+      <p>Nationwide digital textbook infrastructure, adaptive learning platforms, strong coding curriculum from early grades.</p>
+    </div>
+    <div class="country-card fade-up">
+      <span class="flag">🇸🇬</span>
+      <h3>Singapore</h3>
+      <p>Computational thinking from primary school. National AI for Kids program. Public-private partnerships with public accountability.</p>
+    </div>
+    <div class="country-card fade-up">
+      <span class="flag">🇪🇪</span>
+      <h3>Estonia</h3>
+      <p>Digital-first public infrastructure, nationwide ID system, early coding via the Tiger Leap program. Built locally, not imported wholesale from a vendor.</p>
+    </div>
+    <div class="country-card fade-up">
+      <span class="flag">🇦🇪</span>
+      <h3>UAE</h3>
+      <p>AI curriculum for grades 1–12. Ministry of AI. Public learning partnerships — not outsourced, not vendor-dependent.</p>
+    </div>
+    <div class="country-card fade-up">
+      <span class="flag">🏫</span>
+      <h3>Closer to Home</h3>
+      <p>We've built components of this. They work. But this blueprint is not an advertisement — it's a demonstration that the pattern is sound, regardless of who implements it or what tools they use.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-section">
+  <p class="big-quote">The safest school is not the one with the most cameras. It is the one where every adult is trained, every student feels seen, and every piece of technology answers to a human purpose.</p>
+  <div class="quote-attr">School System Modernization Blueprint · R. Verity Vabolis · Hitherto AI</div>
+</section>
+
+<!-- CLOSE -->
+<section class="close-section">
+  <div>
+    <h2>No one is coming.<br>That means we are the ones.</h2>
+  </div>
+  <div>
+    <p>Start with training. Add technology only as a faithful co-author of a future we design together. Build it, buy it, or partner for it — but know the standard.</p>
+    <p>This blueprint is freely shareable. Use it. Adapt it. Hold every vendor — including us — to it. That's the whole point.</p>
+    <a href="https://github.com" class="btn btn-dark">Get the Blueprint on GitHub →</a>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-brand">School System Modernization Blueprint</div>
+    <div style="margin-top:6px;">R. Verity Vabolis · Hitherto AI · Flux Hall Academy · Fathom Lab</div>
+  </div>
+  <div style="text-align:right;">
+    <div>Open blueprint · Freely shareable · Not a sales tool</div>
+    <div style="margin-top:4px;"><a href="https://github.com">GitHub</a></div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const siblings = Array.from(entry.target.parentElement?.children || []);
+        const idx = siblings.indexOf(entry.target);
+        setTimeout(() => entry.target.classList.add('visible'), 80 * idx);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
